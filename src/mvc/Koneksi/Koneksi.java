@@ -10,10 +10,10 @@ public class Koneksi {
     public static Connection connection() {
         if (koneksi == null) {
             try {
-                // Pastikan nama database sesuai: db_rental
+                // nama database kita: db_rental
                 String url = "jdbc:mysql://localhost:3306/db_rental";
                 String user = "root";
-                String pass = ""; // Kosongkan jika XAMPP default
+                String pass = ""; // isi kalo xampp pake pw
                 
                 // Gunakan driver terbaru
                 DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
