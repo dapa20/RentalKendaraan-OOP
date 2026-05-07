@@ -1,0 +1,29 @@
+package mvc.Koneksi;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class Koneksi {
+    private static Connection koneksi;
+    
+    public static Connection connection() {
+        if (koneksi == null) {
+            try {
+                // Pastikan nama database sesuai: db_rental
+                String url = "jdbc:mysql://localhost:3306/db_rental";
+                String user = "root";
+                String pass = ""; // Kosongkan jika XAMPP default
+                
+                // Gunakan driver terbaru
+                DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+                koneksi = DriverManager.getConnection(url, user, pass);
+                System.out.println("Koneksi ke Database Rental Berhasil!");
+                
+            } catch (SQLException e) {
+                System.out.println("Koneksi Gagal: " + e.getMessage());
+            }
+        }
+        return koneksi;
+    }
+}
