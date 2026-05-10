@@ -27,17 +27,8 @@ import mvc.Model.Transaksi;
 import mvc.View.FormTransaksi;
 
 /**
- * Controller untuk Form Transaksi Sewa Kendaraan.
  *
- * Bertanggung-jawab atas:
- *  1. Mengisi ComboBox pelanggan & kendaraan
- *  2. Menampilkan detail kendaraan saat dipilih
- *  3. Menghitung lama sewa, denda, dan total biaya
- *  4. Menyimpan transaksi → mengubah status kendaraan menjadi "Disewa"
- *  5. Menyelesaikan sewa → mengembalikan status kendaraan ke "Tersedia"
- *  6. Memuat tabel Daftar Sewa Aktif
- *
- * @author RentalKendaraan
+ * @author shofwan
  */
 public class ControllerTransaksi {
 

@@ -7,15 +7,15 @@ package mvc.Model;
 import java.util.Date;
 
 /**
- * Model untuk data Transaksi Sewa Kendaraan
- * @author RentalKendaraan
+ *
+ * @author shofwan
  */
 public class Transaksi {
 
     private Integer id_transaksi;
     private Integer id_pelanggan;
-    private Integer id_mobil;    // null jika kendaraan motor
-    private Integer id_motor;    // null jika kendaraan mobil
+    private Integer id_mobil;
+    private Integer id_motor;
     private Date tanggal_sewa;
     private Date tanggal_kembali;
     private Integer lama_hari;
@@ -26,7 +26,7 @@ public class Transaksi {
     // ─── Field tampilan (JOIN) ─────────────────────────────
     private String nama_pelanggan;
     private String nama_kendaraan;
-    private String jenis_kendaraan; // "Mobil" / "Motor"
+    private String jenis_kendaraan;
 
     // ─── Getters & Setters ────────────────────────────────
     public Integer getId_transaksi() { return id_transaksi; }

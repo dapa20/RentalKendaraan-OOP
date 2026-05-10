@@ -13,19 +13,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 import mvc.Controller.ControllerTransaksi;
 
 /**
- * Form Transaksi Sewa Kendaraan.
  *
- * Layout:
- *  ┌─────────┬─────────────────────────────────────────────┐
- *  │ Sidebar │  Transaksi Sewa Kendaraan                   │
- *  │ Nav     │  ┌────────────────┬─────────────────────┐   │
- *  │         │  │ Detail         │ Detail Kendaraan     │   │
- *  │         │  │ Transaksi      │ Dipilih              │   │
- *  │         │  └────────────────┴─────────────────────┘   │
- *  │         │  Daftar Sewa Aktif (tabel)                  │
- *  └─────────┴─────────────────────────────────────────────┘
- *
- * @author RentalKendaraan
+ * @author shofwan
  */
 public class FormTransaksi extends javax.swing.JFrame {
 

@@ -8,6 +8,10 @@ import mvc.Model.Pelanggan;
 import mvc.Model.TabelModelPelanggan;
 import mvc.View.FormData;
 
+/**
+ *
+ * @author shofwan
+ */
 public class ControllerPelanggan {
     FormData frame;
     IDAOPelanggan implPelanggan;

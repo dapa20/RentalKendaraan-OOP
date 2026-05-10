@@ -7,10 +7,8 @@ package mvc;
 import mvc.View.FormDashboard;
 
 /**
- * Entry point utama aplikasi Rental Kendaraan OOP.
- * Jalankan class ini untuk memulai aplikasi.
  *
- * @author RentalKendaraan
+ * @author shofwan
  */
 public class Main {
 

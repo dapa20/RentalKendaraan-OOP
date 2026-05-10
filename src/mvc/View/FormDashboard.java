@@ -14,14 +14,8 @@ import mvc.DAO.DAOTransaksi;
 import mvc.Model.Kendaraan;
 
 /**
- * Dashboard utama aplikasi Rental Kendaraan.
  *
- * Menampilkan:
- *  - Sidebar navigasi (Dashboard, Data Master, Transaksi, Keluar)
- *  - Statistik: Total Kendaraan, Sedang Disewa, Pelanggan Aktif
- *  - Bar chart Ringkasan Pendapatan per bulan
- *
- * @author RentalKendaraan
+ * @author shofwan
  */
 public class FormDashboard extends javax.swing.JFrame {
 
@@ -299,10 +293,6 @@ public class FormDashboard extends javax.swing.JFrame {
     // ══════════════════════════════════════════════════════
     //  Inner class: Panel Bar Chart
     // ══════════════════════════════════════════════════════
-    /**
-     * Panel kustom yang menggambar bar chart pendapatan per bulan.
-     * Dicat ulang setiap kali data diperbarui via setData().
-     */
     private static class GrafikBulanan extends JPanel {
 
         private Map<Integer, Long> data;

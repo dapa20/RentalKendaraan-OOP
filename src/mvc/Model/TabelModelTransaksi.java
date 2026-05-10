@@ -11,10 +11,8 @@ import java.util.Locale;
 import javax.swing.table.AbstractTableModel;
 
 /**
- * TableModel untuk JTable Daftar Transaksi Sewa.
- * Kolom: No | Pelanggan | Kendaraan | Tgl Sewa | Tgl Kembali | Lama | Total Biaya | Status
  *
- * @author RentalKendaraan
+ * @author shofwan
  */
 public class TabelModelTransaksi extends AbstractTableModel {
 
@@ -71,6 +69,6 @@ public class TabelModelTransaksi extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return false; // semua sel read-only
+        return false;
     }
 }

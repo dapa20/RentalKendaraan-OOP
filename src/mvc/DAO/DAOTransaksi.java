@@ -18,13 +18,8 @@ import mvc.Koneksi.Koneksi;
 import mvc.Model.Transaksi;
 
 /**
- * DAO untuk operasi CRUD Transaksi Sewa Kendaraan.
  *
- * Setiap transaksi merujuk ke salah satu dari tbl_mobil ATAU tbl_motor.
- * id_mobil = null  →  kendaraan adalah motor
- * id_motor = null  →  kendaraan adalah mobil
- *
- * @author RentalKendaraan
+ * @author shofwan
  */
 public class DAOTransaksi implements IDAOTransaksi {
 
