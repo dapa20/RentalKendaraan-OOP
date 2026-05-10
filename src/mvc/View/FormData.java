@@ -19,6 +19,7 @@ import javax.swing.JTextField;
  */
 public class FormData extends javax.swing.JFrame {
     mvc.Controller.ControllerPelanggan cbt;
+    mvc.Controller.ControllerKendaraan cbtKendaraan;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormData.class.getName());
 
     /**
