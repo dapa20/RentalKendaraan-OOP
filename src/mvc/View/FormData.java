@@ -4,8 +4,12 @@
  */
 package mvc.View;
 
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -30,6 +34,111 @@ public class FormData extends javax.swing.JFrame {
         this.setLocationRelativeTo(null); // Biar form muncul di tengah layar
         cbt = new mvc.Controller.ControllerPelanggan(this); // Menghubungkan ke controller
         cbt.isiTable();
+        initKendaraanPanel();
+        cbtKendaraan = new mvc.Controller.ControllerKendaraan(this);
+        cbtKendaraan.isiTable();
+    }
+
+    private void initKendaraanPanel() {
+        jPanel2.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 8, 5, 8);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        // --- Row 0: Cari ---
+        gbc.gridx = 0; gbc.gridy = 0; gbc.weightx = 0;
+        jPanel2.add(new JLabel("Cari Kendaraan:"), gbc);
+        txtCariKendaraan = new JTextField(20);
+        gbc.gridx = 1; gbc.weightx = 1.0;
+        jPanel2.add(txtCariKendaraan, gbc);
+        btnCariKendaraan = new JButton("Cari");
+        gbc.gridx = 2; gbc.weightx = 0;
+        jPanel2.add(btnCariKendaraan, gbc);
+        btnCariKendaraan.addActionListener(e -> cbtKendaraan.cari());
+
+        // --- Row 1: Plat Nomor ---
+        gbc.gridx = 0; gbc.gridy = 1; gbc.weightx = 0;
+        jPanel2.add(new JLabel("Plat Nomor:"), gbc);
+        txtPlat = new JTextField(20);
+        gbc.gridx = 1; gbc.weightx = 1.0;
+        jPanel2.add(txtPlat, gbc);
+
+        // --- Row 2: Jenis ---
+        gbc.gridx = 0; gbc.gridy = 2; gbc.weightx = 0;
+        jPanel2.add(new JLabel("Jenis:"), gbc);
+        cbJenis = new JComboBox<>(new String[]{"Mobil", "Motor"});
+        gbc.gridx = 1; gbc.weightx = 1.0;
+        jPanel2.add(cbJenis, gbc);
+
+        // --- Row 3: Model Kendaraan ---
+        gbc.gridx = 0; gbc.gridy = 3; gbc.weightx = 0;
+        jPanel2.add(new JLabel("Model Kendaraan:"), gbc);
+        txtModelKendaraan = new JTextField(20);
+        gbc.gridx = 1; gbc.weightx = 1.0;
+        jPanel2.add(txtModelKendaraan, gbc);
+
+        // --- Row 4: Kategori ---
+        gbc.gridx = 0; gbc.gridy = 4; gbc.weightx = 0;
+        jPanel2.add(new JLabel("Kategori:"), gbc);
+        txtKategori = new JTextField(20);
+        gbc.gridx = 1; gbc.weightx = 1.0;
+        jPanel2.add(txtKategori, gbc);
+
+        // --- Row 5: Harga Sewa ---
+        gbc.gridx = 0; gbc.gridy = 5; gbc.weightx = 0;
+        jPanel2.add(new JLabel("Harga Sewa:"), gbc);
+        txtHargaSewa = new JTextField(20);
+        gbc.gridx = 1; gbc.weightx = 1.0;
+        jPanel2.add(txtHargaSewa, gbc);
+
+        // --- Row 6: Status ---
+        gbc.gridx = 0; gbc.gridy = 6; gbc.weightx = 0;
+        jPanel2.add(new JLabel("Status:"), gbc);
+        cbStatus = new JComboBox<>(new String[]{"Tersedia", "Disewa"});
+        gbc.gridx = 1; gbc.weightx = 1.0;
+        jPanel2.add(cbStatus, gbc);
+
+        // --- Buttons column (rows 1-6) ---
+        JPanel btnPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints bg = new GridBagConstraints();
+        bg.fill = GridBagConstraints.HORIZONTAL;
+        bg.insets = new Insets(4, 4, 4, 4);
+        bg.gridx = 0;
+
+        btnSimpanKendaraan = new JButton("Simpan");
+        bg.gridy = 0; btnPanel.add(btnSimpanKendaraan, bg);
+        btnSimpanKendaraan.addActionListener(e -> cbtKendaraan.insert());
+
+        btnUbahKendaraan = new JButton("Ubah");
+        bg.gridy = 1; btnPanel.add(btnUbahKendaraan, bg);
+        btnUbahKendaraan.addActionListener(e -> cbtKendaraan.update());
+
+        btnHapusKendaraan = new JButton("Hapus");
+        bg.gridy = 2; btnPanel.add(btnHapusKendaraan, bg);
+        btnHapusKendaraan.addActionListener(e -> cbtKendaraan.delete());
+
+        btnBatalKendaraan = new JButton("Batal");
+        bg.gridy = 3; btnPanel.add(btnBatalKendaraan, bg);
+        btnBatalKendaraan.addActionListener(e -> cbtKendaraan.reset());
+
+        gbc.gridx = 2; gbc.gridy = 1; gbc.gridheight = 6;
+        gbc.fill = GridBagConstraints.NONE; gbc.anchor = GridBagConstraints.NORTH;
+        jPanel2.add(btnPanel, gbc);
+        gbc.gridheight = 1; gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        // --- Row 7: Table ---
+        tabelKendaraan = new JTable();
+        tabelKendaraan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                int row = tabelKendaraan.getSelectedRow();
+                if (row != -1) cbtKendaraan.isiField(row);
+            }
+        });
+        JScrollPane scrollKendaraan = new JScrollPane(tabelKendaraan);
+        gbc.gridx = 0; gbc.gridy = 7; gbc.gridwidth = 3;
+        gbc.weightx = 1.0; gbc.weighty = 1.0;
+        gbc.fill = GridBagConstraints.BOTH;
+        jPanel2.add(scrollKendaraan, gbc);
     }
 
     /**
@@ -398,4 +507,28 @@ public class FormData extends javax.swing.JFrame {
     public JTextField getTxtTelp() {
         return txtTelp;
     }
+
+    // ===== Kendaraan Components =====
+    private javax.swing.JTextField txtPlat;
+    private javax.swing.JTextField txtModelKendaraan;
+    private javax.swing.JTextField txtKategori;
+    private javax.swing.JTextField txtHargaSewa;
+    private javax.swing.JComboBox<String> cbJenis;
+    private javax.swing.JComboBox<String> cbStatus;
+    private javax.swing.JTextField txtCariKendaraan;
+    private javax.swing.JTable tabelKendaraan;
+    private javax.swing.JButton btnSimpanKendaraan;
+    private javax.swing.JButton btnUbahKendaraan;
+    private javax.swing.JButton btnHapusKendaraan;
+    private javax.swing.JButton btnBatalKendaraan;
+    private javax.swing.JButton btnCariKendaraan;
+
+    public JTextField getTxtPlat() { return txtPlat; }
+    public JTextField getTxtModelKendaraan() { return txtModelKendaraan; }
+    public JTextField getTxtKategori() { return txtKategori; }
+    public JTextField getTxtHargaSewa() { return txtHargaSewa; }
+    public JComboBox<String> getCbJenis() { return cbJenis; }
+    public JComboBox<String> getCbStatus() { return cbStatus; }
+    public JTextField getTxtCariKendaraan() { return txtCariKendaraan; }
+    public JTable getTabelKendaraan() { return tabelKendaraan; }
 }

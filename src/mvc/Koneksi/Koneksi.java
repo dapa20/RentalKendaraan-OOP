@@ -10,16 +10,21 @@ public class Koneksi {
     public static Connection connection() {
         if (koneksi == null) {
             try {
-                // nama database kita: db_rental
-                String url = "jdbc:mysql://localhost:3306/db_rental";
+                // Sesuaikan nama database: db_rental
+                // Cek di phpMyAdmin-mu ya!
+                String url = "jdbc:mysql://localhost:3306/db_rental"; 
                 String user = "root";
-                String pass = ""; // isi kalo xampp pake pw
+                String pass = ""; 
+
+                // Daftarkan Driver
+                Class.forName("com.mysql.cj.jdbc.Driver");
                 
-                // Gunakan driver terbaru
-                DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+                // Buka Koneksi
                 koneksi = DriverManager.getConnection(url, user, pass);
                 System.out.println("Koneksi ke Database Rental Berhasil!");
                 
+            } catch (ClassNotFoundException e) {
+                System.out.println("Driver tidak ditemukan: " + e.getMessage());
             } catch (SQLException e) {
                 System.out.println("Koneksi Gagal: " + e.getMessage());
             }
