@@ -38,12 +38,20 @@ public class ControllerTransaksi {
         this.connection = Koneksi.connection();
     }
 
-    public void isiComboPelanggan() {
+   public void isiComboPelanggan(Integer includeId) {
         JComboBox<String> combo = view.getPelangganCombo();
         combo.removeAllItems();
         combo.addItem("-- Pilih Pelanggan --");
 
-        String sql = "SELECT id_pelanggan, nama_lengkap FROM tbl_pelanggan ORDER BY nama_lengkap";
+        String sql = "SELECT id_pelanggan, nama_lengkap FROM tbl_pelanggan "
+                   + "WHERE id_pelanggan NOT IN (SELECT id_pelanggan FROM tbl_transaksi_rental)";
+        
+        if (includeId != null) {
+            sql += " OR id_pelanggan = " + includeId;
+        }
+        
+        sql += " ORDER BY nama_lengkap";
+
         try (PreparedStatement stmt = connection.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
@@ -64,6 +72,11 @@ public class ControllerTransaksi {
                 return this;
             }
         });
+    }
+
+    // FUNGSI CADANGAN (Dipanggil saat form pertama dibuka)
+    public void isiComboPelanggan() {
+        isiComboPelanggan(null);
     }
 
     // Method default (dipanggil saat awal form dibuka)
@@ -354,10 +367,9 @@ public class ControllerTransaksi {
     public void isiField(int row) {
         TabelModelTransaksi model = (TabelModelTransaksi) view.getJTable1().getModel();
         Transaksi t = model.getTransaksiAt(row);
-
         // 1. Panggil ulang isi combo kendaraan (menarik yang sedang disewa)
         isiComboKendaraan(t);
-        
+        isiComboPelanggan(t.getId_pelanggan());
         // 2. Pilih otomatis Pelanggan (Mencocokkan NAMA, bukan ID)
         String namaPelangganTabel = t.getNama_pelanggan(); 
         for (int i = 0; i < view.getPelangganCombo().getItemCount(); i++) {
@@ -388,19 +400,21 @@ public class ControllerTransaksi {
 
     // INI DIA FUNGSI YANG TADI MENGHILANG!
     public void isiTableTransaksi() {
-        List<Transaksi> list = daoTransaksi.getAll();
+        List<Transaksi> list = daoTransaksi.getAktif();
         TabelModelTransaksi tableModel = new TabelModelTransaksi(list);
         view.getJTable1().setModel(tableModel);
     }
 
     public void resetForm() {
-        view.getPelangganCombo().setSelectedIndex(0);
-        view.getKendaraanCombo().setSelectedIndex(0);
+        isiComboPelanggan();
+        isiComboKendaraan();
         view.getSewaSpinner().setValue(new Date());
         view.getKembaliSpinner().setValue(new Date());
         view.getLamaSewaTF().setText("0");
         view.getDendaTF().setText("0");
         view.getTotalBiayaTF().setText("Rp 0");
+        view.getPenyewaTF().setText("");
+        view.getJTable1().clearSelection();
         bersihkanDetailKendaraan();
         kendaraanDipilih = null;
     }
@@ -430,5 +444,20 @@ public class ControllerTransaksi {
             if (rs.next()) return rs.getInt("harga_sewa");
         } catch (SQLException ex) { }
         return 0;
+    }
+    
+    // ══════════════════════════════════════════════════════
+    //  11. FUNGSI CARI DATA PENYEWA
+    // ══════════════════════════════════════════════════════
+    public void cariData() {
+        // Ambil teks dari JTextField pencarian (asumsi namanya jTextField1)
+        String keyword = view.getPenyewaTF().getText().trim();
+        if (keyword.isEmpty()) {
+            isiTableTransaksi(); // Jika kosong, tampilkan semua data
+            return;
+        }
+        List<Transaksi> list = daoTransaksi.getCariNama(keyword);
+        TabelModelTransaksi tableModel = new TabelModelTransaksi(list);
+        view.getJTable1().setModel(tableModel);
     }
 }

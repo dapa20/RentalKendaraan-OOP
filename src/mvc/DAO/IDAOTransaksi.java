@@ -10,7 +10,7 @@ import mvc.Model.Transaksi;
 
 /**
  *
- * @author shofwan
+ * @author dapa
  */
 public interface IDAOTransaksi {
 
@@ -20,6 +20,7 @@ public interface IDAOTransaksi {
     void updateStatus(int id_transaksi, String status, int denda, int total_bayar);
     List<Transaksi> getAll();
     List<Transaksi> getAktif();
+    List<Transaksi> getCariNama (String nama);
     public void update(Transaksi t); 
     public void delete(int id);      
     int countDisewa();
